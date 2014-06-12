@@ -1,4 +1,3 @@
-from flaskdemo.apps.core import coreApp as app
 from flask.views import View
 
 class Demo(View):
