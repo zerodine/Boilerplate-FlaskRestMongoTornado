@@ -5,3 +5,10 @@ lib
 .Python
 dist
 MANIFEST
+!doc/_build/.gitkeep
+!doc/_static/.gitkeep
+!doc/_templates/.gitkeep
+
+doc/_build
+doc/_static
+doc/_templates
