@@ -1,6 +1,5 @@
 import os
 
-
 env = os.getenv('APP_ENV', 'dev')
 
 if env == 'dev':
