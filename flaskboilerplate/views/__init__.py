@@ -1,4 +1,4 @@
-from .. import coreApp as app
+from .. import app
 from demo import Demo
 
 

@@ -1,5 +1,5 @@
-from config import Config as BaseConfig
+from config import Config as ConfigBase
 
 
-class Config(BaseConfig):
+class Config(ConfigBase):
     pass

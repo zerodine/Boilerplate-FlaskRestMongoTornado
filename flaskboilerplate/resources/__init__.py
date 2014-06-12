@@ -1,4 +1,4 @@
-from .. import coreApi as api
+from .. import api
 from demo import Demo
 
 

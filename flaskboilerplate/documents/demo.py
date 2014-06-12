@@ -1,4 +1,5 @@
-from .. import odm as db
+from flaskboilerplate import odm as db
+
 
 class Demo(db.Document):
     email = db.StringField(required=True)

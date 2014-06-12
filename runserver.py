@@ -1,3 +1,7 @@
-from flaskboilerplate.apps import coreApp
+from flaskboilerplate import app
 
-coreApp.run(debug=True)
+# the toolbar is only enabled in debug mode:
+app.debug = True
+# toolbar = DebugToolbarExtension(coreApp)
+
+app.run(debug=True)
