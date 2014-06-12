@@ -6,7 +6,7 @@ from distutils.core import setup
 files = ["flaskboilerplate/*", "runserver.py", "manage.py"]
 
 setup(name = "flaskboilerplate",
-    version = "100",
+    version = "1.0.0",
     description = "Flask Boilerplate Project with Mongo and Restful support",
     author = "zerodine",
     author_email = "info@zerodine.com",
@@ -23,8 +23,8 @@ setup(name = "flaskboilerplate",
     package_data = {'package' : files },
     #'runner' is in the root.
     scripts = ["runserver.py"],
-    long_description=open('README', 'rt').read()
-
+    long_description = open('README', 'rt').read(),
+    install_requires = ['flask', 'mongoengine', 'flask_mongoengine', 'flask-restful', 'tornado','Flask-Script']
     #
     #This next part it for the Cheese Shop, look a little down the page.
     #classifiers = []     
