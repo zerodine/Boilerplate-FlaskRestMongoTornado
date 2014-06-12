@@ -1,0 +1,2 @@
+include README runserver.py requirements.md manage.py
+recursive-include flaskboilerplate *

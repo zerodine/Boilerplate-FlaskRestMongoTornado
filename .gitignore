@@ -3,3 +3,5 @@ include
 lib
 *.pyc
 .Python
+dist
+MANIFEST
