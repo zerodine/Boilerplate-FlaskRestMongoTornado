@@ -19,6 +19,7 @@ pip install flask_mongoengine
 pip install flask-restful
 pip install tornado
 pip install Flask-Script
+#pip install flask-debugtoolbar #optional
 ```
 
 ## Directory Layout
@@ -34,7 +35,9 @@ pip install Flask-Script
             config_dev.py       --> config for dev environment
             config_test.py      --> config for test environment
             config_prod.py      --> config for test environment
-          resources/            --> app resources 
+          documents/            --> all your odm Documents
+            demo.py             --> an example Document
+          resources/            --> app resources
             demo.py             --> a demo resource with a simply get method
           views/                --> app views
             demo.py             --> a demo which returns a simple string
