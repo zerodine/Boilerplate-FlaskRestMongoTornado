@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_mongoengine import MongoEngine
 from flask.ext import restful
+from flask_restful.utils import cors
 
 # from flask_debugtoolbar import DebugToolbarExtension
 
@@ -13,7 +14,7 @@ api = restful.Api(app)
 
 odm = MongoEngine(app)
 
-#api.decorators = [cors.crossdomain(origin=app.config['CORS_ORIGIN'], methods=app.config['CORS_METHODS'], headers=app.config['CORS_HEADERS'])]
+api.decorators = [cors.crossdomain(origin=app.config['CORS_ORIGIN'], methods=app.config['CORS_METHODS'], headers=app.config['CORS_HEADERS'])]
 
 # Load all further resources
 from . import views
