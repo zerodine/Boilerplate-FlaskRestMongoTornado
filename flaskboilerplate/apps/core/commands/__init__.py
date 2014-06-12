@@ -1,5 +1,5 @@
 from flask.ext.script import Manager
-from flaskdemo.apps import coreApp
+from flaskboilerplate.apps import coreApp
 
 from demo import Demo
 

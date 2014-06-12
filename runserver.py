@@ -1,3 +1,3 @@
-from flaskdemo.apps import coreApp
+from flaskboilerplate.apps import coreApp
 
 coreApp.run(debug=True)

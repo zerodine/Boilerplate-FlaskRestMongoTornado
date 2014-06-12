@@ -6,7 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 # Configure the Application
 coreApp = Flask(__name__)
-coreApp.config.from_object('flaskdemo.apps.core.config.Config')
+coreApp.config.from_object('flaskboilerplate.apps.core.config.Config')
 
 # Configure the Applications API
 coreApi = restful.Api(coreApp)
@@ -21,5 +21,5 @@ toolbar = DebugToolbarExtension(coreApp)
 
 
 # Load all further resources
-import flaskdemo.apps.core.views
-import flaskdemo.apps.core.resources
+import flaskboilerplate.apps.core.views
+import flaskboilerplate.apps.core.resources
