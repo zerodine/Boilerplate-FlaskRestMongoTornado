@@ -1,5 +1,3 @@
-
-
 class Config(object):
     MONGODB_SETTINGS = dict({
         "DB": "flaskdemo",

@@ -24,7 +24,7 @@ pip install Flask-Script
 
 ## Directory Layout
 
-    flaskdemo/                  --> demo project, just rename or copy it
+    flaskboilerplate/           --> demo project, just rename or copy it
       
       apps/                     --> all the apps go in here
         core/                   --> demo app called core

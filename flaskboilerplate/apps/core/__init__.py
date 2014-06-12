@@ -21,5 +21,5 @@ toolbar = DebugToolbarExtension(coreApp)
 
 
 # Load all further resources
-import flaskboilerplate.apps.core.views
-import flaskboilerplate.apps.core.resources
+from . import views
+from . import resources

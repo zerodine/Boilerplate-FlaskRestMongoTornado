@@ -1,5 +1,3 @@
-
-
 class Config(object):
     SECRET_KEY = 'SOME_SECRET_KEY_HERE'
 

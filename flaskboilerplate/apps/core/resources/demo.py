@@ -1,8 +1,8 @@
 from flask.ext import restful
 from ..documents import Demo as DemoDocument
 
-class Demo(restful.Resource):
 
+class Demo(restful.Resource):
 
     def get(self):
         return {'hello': 'world'}

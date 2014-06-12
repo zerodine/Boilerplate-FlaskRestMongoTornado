@@ -1,5 +1,6 @@
 from flask.ext.script import Manager
 
+
 def sub_opts(*app, **kwargs):
     pass
 
