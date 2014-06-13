@@ -5,7 +5,6 @@ from ..documents import Demo as DemoDocument
 
 class Demo(restful.Resource):
 
-
     @restful.marshal_with(DemoDocument.resource_fields)
     def get(self, _email):
         x = DemoDocument.objects(email=_email)[0]

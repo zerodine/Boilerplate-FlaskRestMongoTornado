@@ -14,3 +14,4 @@ class Config(object):
         #"DEBUG_TB_PANELS": "flask.ext.mongoengine.panels.MongoDebugPanel"
     })
 
+    OAUTH_ENDPOINT = None
