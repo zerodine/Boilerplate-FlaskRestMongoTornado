@@ -6,6 +6,7 @@ from ..libs import DefaultRepository
 class Demo(db.Document):
 
     resource_fields = {
+        'id':           fields.String,
         'email':        fields.String,
         'first_name':   fields.String,
         'last_name':    fields.String,
