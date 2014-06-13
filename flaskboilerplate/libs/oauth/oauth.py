@@ -9,8 +9,6 @@ class OAuth(object):
         self.endpoint = endpoint
 
     def verify(self, access_token):
-        if self.endpoint is None:
-            return True
         r = requests.get(self.endpoint + "?access_token=" + access_token)
         if r.status_code == 200:
             return True

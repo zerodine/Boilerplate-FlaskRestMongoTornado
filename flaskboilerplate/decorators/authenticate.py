@@ -7,6 +7,9 @@ def authenticate(endpoint={}):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
+            if endpoint is None:
+                return f(*args, **kwargs)
+
             oauth = OAuth(endpoint)
             access_token = request.headers.get('Authorization')
             if access_token:
