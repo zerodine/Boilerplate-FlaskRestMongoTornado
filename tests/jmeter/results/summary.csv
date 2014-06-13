@@ -1,0 +1,4 @@
+sampler_label,aggregate_report_count,average,aggregate_report_min,aggregate_report_max,aggregate_report_stddev,aggregate_report_error%,aggregate_report_rate,aggregate_report_bandwidth,average_bytes
+Post,10000,6,1,72,3.705808931933755,0.0,43.972086519477436,19.151904870788023,446.0
+Get,10000,8,1,56,3.9927619312951768,0.0,43.97169981399971,19.151736442425655,446.0
+TOTAL,20000,7,1,72,4.056044871546666,0.0,87.90320099506424,38.28596449589712,446.0
