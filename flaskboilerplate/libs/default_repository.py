@@ -3,9 +3,17 @@ from flask.ext.restful import abort
 class DefaultRepository(object):
     document = None
 
-    def __init__(self, document):
-        self.document = document
+    def check_for_document(function):
+        def decorator(*arg, **kwargs):
+            if arg[0].document is None:
+                abort(500,
+                      message="Internal Server Error",
+                      description="repository document attribute is None, which should not be the case"
+                )
+            function(*arg, **kwargs)
+        return decorator
 
+    @check_for_document
     def abortIfNotExists(self, **kwargs):
         doc = self.document.objects(**kwargs).first()
         if doc is None:
