@@ -1,14 +1,15 @@
 from flask.ext import restful
-
 from ..documents import Demo as DemoDocument
-#from ..documents import DemoRepository
 
 
 class Demo(restful.Resource):
 
     @restful.marshal_with(DemoDocument.resource_fields)
-    def get(self, _email):
-        return DemoDocument.DemoRepository().abortIfNotExists(email=_email)
+    def get(self, _email = None):
+        if _email is None:
+            return tuple(DemoDocument.objects)
+        doc = DemoDocument.DemoRepository().abortIfNotExists(email=_email)
+        return doc
 
     @restful.marshal_with(DemoDocument.resource_fields)
     def post(self, _email):

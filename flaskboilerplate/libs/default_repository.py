@@ -10,7 +10,7 @@ class DefaultRepository(object):
                       message="Internal Server Error",
                       description="repository document attribute is None, which should not be the case"
                 )
-            function(*arg, **kwargs)
+            return function(*arg, **kwargs)
         return decorator
 
     @check_for_document
