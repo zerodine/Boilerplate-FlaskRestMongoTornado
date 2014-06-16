@@ -1,4 +1,4 @@
-from flaskboilerplate import odm as db
+from .. import odm as db
 from flask.ext.restful import fields
 from ..libs import DefaultRepository
 
