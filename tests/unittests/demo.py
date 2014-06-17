@@ -4,7 +4,7 @@ from base import BaseTestCase
 
 class DemoTestCase(BaseTestCase):
 
-    def test_empty_db(self):
+    def test_demo(self):
         rv = self.client.get('/demo1')
         assert 'Hello World!' in rv.data
 

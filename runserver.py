@@ -1,5 +1,7 @@
-import logging
-from flaskboilerplate import app
+#import logging
+import argparse
+from flaskboilerplate import create_app
+from werkzeug._internal import _log
 
 # for tornado integration
 from tornado.wsgi import WSGIContainer
@@ -7,21 +9,33 @@ from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 
 
-# logger config
-#handler = RotatingFileHandler('foo.log', maxBytes=10000, backupCount=1)
-#handler.setLevel(logging.INFO)
-#app.logger.addHandler(handler)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Staring Flask based RESTful Server')
+    parser.add_argument('port', metavar='Port', type=int, nargs='?', default=5000,
+                       help='port to run the application')
+    parser.add_argument('--env', '-e', dest='environment', action='store',
+                   default='dev',
+                   help='type of environment')
+    parser.add_argument('--tornado', '-t', dest='tornado', action='store_true', help='run the server as tornado wsgi')
+    args = parser.parse_args()
 
-#app.logger.warning("katschiiing")
+    app = create_app()
 
-# the toolbar is only enabled in debug mode:
-app.debug = True
-# toolbar = DebugToolbarExtension(coreApp)
+    if args.environment == 'dev' or args.environment == 'test':
+        app.debug = True
+    else:
+        pass
 
-# start with Flask
-app.run(debug=True)
+    if args.tornado:
+        try:
+            _log('info', " * Starting Tornado Server")
+            http_server = HTTPServer(WSGIContainer(app))
+            http_server.listen(args.port)
+            IOLoop.instance().start()
+        except KeyboardInterrupt as e:
+            _log('info', " * Stopping Tornado Server by Ctrl+C")
 
-# start with Tornado
-#http_server = HTTPServer(WSGIContainer(app))
-#http_server.listen(5000)
-#IOLoop.instance().start()
+    else:
+        _log('info', " * Starting Flask Internal (dev) Server")
+        app.run(port=args.port)
+        _log('info', " * Stopping Flask Internal (dev) Server")
