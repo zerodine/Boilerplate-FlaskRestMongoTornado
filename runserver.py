@@ -23,7 +23,7 @@ if __name__ == "__main__":
     app = create_app()
 
     if args.environment == 'dev' or args.environment == 'test':
-        app.debug = True
+        pass
     else:
         pass
 

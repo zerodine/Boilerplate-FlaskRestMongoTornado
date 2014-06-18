@@ -1,5 +1,6 @@
 class Config(object):
     SECRET_KEY = 'SOME_SECRET_KEY_HERE'
+    LOGGER_NAME = 'flaskboilerplate'
 
     CORS_ORIGIN = ['*']
     CORS_METHODS = ['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS', 'HEAD']
