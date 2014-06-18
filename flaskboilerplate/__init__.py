@@ -4,12 +4,17 @@ from flask_restful.utils import cors
 from decorators import authenticate
 from flaskboilerplate.config.config_dev import Config
 
-def create_app(env='dev'):
+
+def create_app(env='dev', services = dict()):
     app = Flask(__name__)
     with app.app_context():
         from flask import current_app, g
         g._env = env
         current_app.config.from_object('flaskboilerplate.config.config_%s.Config' % env)
+
+        # load all Services
+        for name, obj in services.iteritems():
+            app.config['SERVICE'].add(name, obj)
 
         from odm import odm
 

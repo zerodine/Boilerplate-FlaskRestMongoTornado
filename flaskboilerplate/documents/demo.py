@@ -18,6 +18,12 @@ class Demo(db.Document):
     first_name = db.StringField(max_length=50)
     last_name = db.StringField(max_length=50)
 
+    def encode(self, charset, errors):
+        return self
+
+    def split(self, a, b):
+        return 0
+
     class DemoRepository(DefaultRepository):
 
         def __init__(self):

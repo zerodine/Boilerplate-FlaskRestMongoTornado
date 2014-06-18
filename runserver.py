@@ -3,6 +3,7 @@ import argparse
 import os
 from flaskboilerplate import create_app
 from werkzeug._internal import _log
+from flaskboilerplate.libs import Rsa
 
 # for tornado integration
 from tornado.wsgi import WSGIContainer
@@ -18,9 +19,26 @@ if __name__ == "__main__":
     parser.add_argument('--ssl', '-s', dest='use_ssl', action='store_true', help='run server with ssl certs')
     parser.add_argument('--ssl-certfile', '-c', dest='ssl_certfile', action='store', default='server.crt', help='ssl certificate file')
     parser.add_argument('--ssl-keyfile', '-k', dest='ssl_keyfile', action='store', default='server.key', help='ssl key file')
+    parser.add_argument('--rsa-create', '-r', dest='creatersa', action='store_true', help='create rsa keymaterial and store it in --rsa-pubfile and --rsa-privfile')
+    parser.add_argument('--rsa-pubfile', '-p', dest='rsa_pubfile', action='store', help='filename of the rsa public key file', default="rsa.pub")
+    parser.add_argument('--rsa-privfile', '-q', dest='rsa_privfile', action='store', help='filename of the rsa private key file', default="rsa.priv")
     args = parser.parse_args()
 
-    app = create_app()
+    rsa = None
+    if args.creatersa:
+        rsa = Rsa()
+        rsa.createKeypair()
+        Rsa.storeKey(args.rsa_pubfile, rsa.dumpKeys()[0])
+        Rsa.storeKey(args.rsa_privfile, rsa.dumpKeys()[1])
+
+    elif args.rsa_pubfile:
+        rsa = Rsa()
+        publicKey = Rsa.loadKey(args.rsa_pubfile)
+        privateKey = Rsa.loadKey(args.rsa_privfile)
+        if publicKey:
+            rsa.loadKeypair(publicKey, privateKey)
+
+    app = create_app(env=args.environment, services={'rsa': rsa})
 
     if args.environment == 'dev' or args.environment == 'test':
         pass
@@ -32,8 +50,6 @@ if __name__ == "__main__":
             _log('info', " * Starting Tornado Server")
             if args.use_ssl:
                 ssl_options={'certfile': os.path.join(args.ssl_certfile), 'keyfile': os.path.join(args.ssl_keyfile)}
-                #from flask_sslify import SSLify
-                #sslify = SSLify(app, permanent=True)
             else:
                 ssl_options=None
             http_server = HTTPServer(WSGIContainer(app), ssl_options=ssl_options)
@@ -41,7 +57,6 @@ if __name__ == "__main__":
             IOLoop.instance().start()
         except KeyboardInterrupt as e:
             _log('info', " * Stopping Tornado Server by Ctrl+C")
-
     else:
         _log('info', " * Starting Flask Internal (dev) Server")
         app.run(port=args.port)

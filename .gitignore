@@ -12,3 +12,4 @@ MANIFEST
 doc/_build
 doc/_static
 doc/_templates
+rsa.*
