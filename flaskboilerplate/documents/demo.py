@@ -1,12 +1,8 @@
-#from .. import odm as db
 from . import odm as db
 from flask.ext.restful import fields
-from ..libs import DefaultRepository
-from mongoengine import signals, queryset_manager
+from basedocument import Basedocument
 
-
-class Demo(db.Document):
-
+class Demo(Basedocument):
     resource_fields = {
         'id':           fields.String,
         'email':        fields.String,
@@ -14,16 +10,6 @@ class Demo(db.Document):
         'last_name':    fields.String,
     }
 
-
     email = db.StringField(required=True)
     first_name = db.StringField(max_length=50)
     last_name = db.StringField(max_length=50)
-
-    class DemoRepository(DefaultRepository):
-
-        def __init__(self):
-            self.document = Demo
-
-    @queryset_manager
-    def objects(doc_cls, queryset):
-        return Demo.DemoRepository().filter_for_acl(queryset)

@@ -23,7 +23,7 @@ class Demo(restful.Resource):
         """
         if _email is None:
             return tuple(DemoDocument.objects)
-        doc = DemoDocument.DemoRepository().abortIfNotExists(email=_email)
+        doc = DemoDocument().getRepository().abortIfNotExists(email=_email)
         return doc
 
     @restful.marshal_with(DemoDocument.resource_fields)
