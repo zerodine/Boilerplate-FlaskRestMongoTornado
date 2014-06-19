@@ -6,5 +6,6 @@ class Demo(Command):
     """
 
     def run(self):
+        """Just prints a hello world"""
         print "hello world"
 

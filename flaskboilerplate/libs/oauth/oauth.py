@@ -9,8 +9,14 @@ class OAuth(object):
         self.endpoint = endpoint
 
     def verify(self, access_token):
+        """Verify the access token
+
+        Keyword arguments:
+        access_token -- An oauth 2.0 access token
+        """
         r = requests.get(self.endpoint + "?access_token=" + access_token)
         if r.status_code == 200:
+            # TODO: Return the response body
             return True
         return False
 

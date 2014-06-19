@@ -4,7 +4,12 @@ from werkzeug._internal import _log
 from werkzeug.local import LocalProxy
 
 def get_odm():
-    #with current_app.app_context() as ctx:
+    """Form a complex number.
+
+    Keyword arguments:
+    real -- the real part (default 0.0)
+    imag -- the imaginary part (default 0.0)
+    """
     ctx = None
     db = getattr(g, '_odm', None)
     if db is None:

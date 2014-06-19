@@ -15,7 +15,12 @@ class Demo(restful.Resource):
         return parser
 
     @restful.marshal_with(DemoDocument.resource_fields)
-    def get(self, _email = None):
+    def get(self, _email=None):
+        """Handler for GET requests
+
+        Keyword arguments:
+        _email -- Email to get a person (default None)
+        """
         if _email is None:
             return tuple(DemoDocument.objects)
         doc = DemoDocument.DemoRepository().abortIfNotExists(email=_email)
@@ -23,6 +28,11 @@ class Demo(restful.Resource):
 
     @restful.marshal_with(DemoDocument.resource_fields)
     def post(self, _email):
+        """Handler for POST requests
+
+        Keyword arguments:
+        _email -- Email from person
+        """
         args = self.parser().parse_args()
 
         demo = DemoDocument()

@@ -5,13 +5,14 @@ from flaskboilerplate import create_app
 from werkzeug._internal import _log
 from flaskboilerplate.libs import Rsa
 
-# for tornado integration
+# For tornado integration
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 
 
 if __name__ == "__main__":
+    # CLI arguments
     parser = argparse.ArgumentParser(description='Staring Flask based RESTful Server')
     parser.add_argument('port', metavar='Port', type=int, nargs='?', default=5000, help='port to run the application')
     parser.add_argument('--env', '-e', dest='environment', action='store', default='dev', help='type of environment')
@@ -24,6 +25,7 @@ if __name__ == "__main__":
     parser.add_argument('--rsa-privfile', '-q', dest='rsa_privfile', action='store', help='filename of the rsa private key file', default="rsa.priv")
     args = parser.parse_args()
 
+    # Generate a rsa object
     rsa = None
     if args.creatersa:
         rsa = Rsa()
@@ -38,6 +40,7 @@ if __name__ == "__main__":
         if publicKey:
             rsa.loadKeypair(publicKey, privateKey)
 
+    # Create the app
     app = create_app(env=args.environment, services={'rsa': rsa})
 
     if args.environment == 'dev' or args.environment == 'test':
@@ -45,6 +48,7 @@ if __name__ == "__main__":
     else:
         pass
 
+    # Start app in tornado wsgi container
     if args.tornado:
         try:
             _log('info', " * Starting Tornado Server")
