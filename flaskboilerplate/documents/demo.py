@@ -3,7 +3,6 @@ from flask.ext.restful import fields
 from basedocument import Basedocument
 #from mongoengine import queryset_manager
 
-
 class Demo(Basedocument):
     resource_fields = {
         'id':           fields.String,
