@@ -2,6 +2,7 @@
 from . import odm as db
 from flask.ext.restful import fields
 from ..libs import DefaultRepository
+from mongoengine import signals, queryset_manager
 
 
 class Demo(db.Document):
@@ -18,13 +19,11 @@ class Demo(db.Document):
     first_name = db.StringField(max_length=50)
     last_name = db.StringField(max_length=50)
 
-    def encode(self, charset, errors):
-        return self
-
-    def split(self, a, b):
-        return 0
-
     class DemoRepository(DefaultRepository):
 
         def __init__(self):
             self.document = Demo
+
+    @queryset_manager
+    def objects(doc_cls, queryset):
+        return Demo.DemoRepository().filter_for_acl(queryset)

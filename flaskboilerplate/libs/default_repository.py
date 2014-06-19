@@ -14,6 +14,39 @@ class DefaultRepository(object):
             return function(*arg, **kwargs)
         return decorator
 
+    #def filter_for_acl(function):
+    #    def decorator(*arg, **kwargs):
+    #        data = function(*arg, **kwargs)
+    #        for d in data:
+    #            pass
+    #        return data
+    #    return decorator
+
+    def filter_for_acl(self, queryset):
+        bulkaclids = list()
+        classname = None
+        querysetcopy = queryset
+        for d in querysetcopy.only('id'):
+            if classname is None:
+                classname = d.__class__.__name__
+            bulkaclids.append(str(d.id))
+        bulkacl = self._query_acl({classname: bulkaclids})
+        return queryset(id__in=bulkacl[classname])
+
+
+    def _query_acl(self, bulkacl):
+        odd = True
+        for classname, ids in bulkacl.iteritems():
+            for id in ids:
+                if odd:
+                    odd = False
+                    continue
+                odd = True
+                bulkacl[classname].remove(id)
+
+        return bulkacl
+
+
     @check_for_document
     def abortIfNotExists(self, **kwargs):
         """Abort if a document does not exist"""
