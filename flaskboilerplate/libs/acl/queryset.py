@@ -5,6 +5,19 @@ from bson.code import Code
 
 class AclAwareQueryset(QuerySetNoCache):
 
+    def check_document_acl(function):
+        """Check if a document exists"""
+        def decorator(*arg, **kwargs):
+            if 'checkAcl' in dir(arg[0]) and arg[0]._document.checkAcl():
+                return function(*arg, **kwargs)
+            else:
+                method =  getattr(super(arg[0].__class__, arg[0]), function.__name__)
+                if function.__name__ in ['__iter__']:
+                    return method()
+                return method(*arg, **kwargs)
+        return decorator
+
+    @check_document_acl
     def __getitem__(self, key):
         x = super(self.__class__, self).__getitem__(key)
         if isinstance(key, slice):
@@ -17,6 +30,7 @@ class AclAwareQueryset(QuerySetNoCache):
                 return x
         raise AttributeError
 
+    @check_document_acl
     def __iter__(self):
         return self._iter_with_acl(self._clone())
 
@@ -27,9 +41,10 @@ class AclAwareQueryset(QuerySetNoCache):
         ids = list()
         for y in iterator.clone().only('id'):
             ids.append(str(y.id))
-        ids = self._filter_acl(ids)
-        return iterator.clone()(id__in=ids)
+        # now take all id's and filter for the allowed ones
+        return iterator.clone()(id__in=self._filter_acl(ids))
 
+    @check_document_acl
     def count(self, with_limit_and_skip=True):
         return self._clone().count()
 
