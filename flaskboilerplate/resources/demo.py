@@ -41,3 +41,8 @@ class Demo(restful.Resource):
         demo.last_name = args['last_name']
         demo.save()
         return demo
+
+class DemoStats(restful.Resource):
+    def get(self):
+        data = {"count": DemoDocument.objects[:100].count()}
+        return data
