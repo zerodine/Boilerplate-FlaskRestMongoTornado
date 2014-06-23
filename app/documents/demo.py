@@ -1,11 +1,9 @@
-#from .. import odm as db
 from . import odm as db
 from flask.ext.restful import fields
-from ..libs import DefaultRepository
+from basedocument import Basedocument
+#from mongoengine import queryset_manager
 
-
-class Demo(db.Document):
-
+class Demo(Basedocument):
     resource_fields = {
         'id':           fields.String,
         'email':        fields.String,
@@ -13,18 +11,11 @@ class Demo(db.Document):
         'last_name':    fields.String,
     }
 
-
     email = db.StringField(required=True)
     first_name = db.StringField(max_length=50)
     last_name = db.StringField(max_length=50)
 
-    def encode(self, charset, errors):
-        return self
-
-    def split(self, a, b):
-        return 0
-
-    class DemoRepository(DefaultRepository):
-
-        def __init__(self):
-            self.document = Demo
+    #@queryset_manager
+    #def objects(doc_cls, queryset):
+    #    ''' Override this method to customize the default query '''
+    #    return queryset

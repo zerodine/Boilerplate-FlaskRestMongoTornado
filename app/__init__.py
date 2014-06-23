@@ -2,7 +2,7 @@ from flask import Flask
 from flask.ext import restful
 from flask_restful.utils import cors
 from decorators import authenticate
-from flaskboilerplate.config.config_dev import Config
+from app.config.config_dev import Config
 
 
 def create_app(env='dev', services = dict()):
@@ -15,7 +15,7 @@ def create_app(env='dev', services = dict()):
         g._env = env
 
         # Load the config
-        current_app.config.from_object('flaskboilerplate.config.config_%s.Config' % env)
+        current_app.config.from_object('app.config.config_%s.Config' % env)
 
         # Load all services
         for name, obj in services.iteritems():

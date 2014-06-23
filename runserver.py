@@ -1,9 +1,9 @@
 #import logging
 import argparse
 import os
-from flaskboilerplate import create_app
+from app import create_app
 from werkzeug._internal import _log
-from flaskboilerplate.libs import Rsa
+from app.libs import Rsa
 
 # For tornado integration
 from tornado.wsgi import WSGIContainer
