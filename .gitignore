@@ -14,3 +14,5 @@ doc/_static
 doc/_templates
 rsa.priv
 rsa.pub
+test_key.prv
+test_key.pub
