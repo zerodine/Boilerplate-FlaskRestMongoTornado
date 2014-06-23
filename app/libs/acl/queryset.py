@@ -11,7 +11,7 @@ class AclAwareQueryset(QuerySetNoCache):
             if 'checkAcl' in dir(arg[0]) and arg[0]._document.checkAcl():
                 return function(*arg, **kwargs)
             else:
-                method =  getattr(super(arg[0].__class__, arg[0]), function.__name__)
+                method = getattr(super(arg[0].__class__, arg[0]), function.__name__)
                 if function.__name__ in ['__iter__']:
                     return method()
                 return method(*arg, **kwargs)
@@ -48,7 +48,7 @@ class AclAwareQueryset(QuerySetNoCache):
     def count(self, with_limit_and_skip=True):
         return self._clone().count()
 
-    def _filter_acl(self, ids = list()):
+    def _filter_acl(self, ids=list()):
         if len(ids) <= 1:
             return ids
         return ['53a14063c84fd645fb184f29']

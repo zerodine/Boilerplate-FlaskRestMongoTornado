@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import request, abort
-from flaskboilerplate.libs.oauth import OAuth
+from app.libs.oauth import OAuth
 
 
 def authenticate(endpoint={}):

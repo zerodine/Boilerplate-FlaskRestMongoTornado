@@ -6,7 +6,7 @@ def sub_opts(*app, **kwargs):
 
 manager = Manager(sub_opts)
 
-from flaskboilerplate.apps.core.commands import sub_manager as core_sub_manager
+from app.apps.core.commands import sub_manager as core_sub_manager
 manager.add_command("core", core_sub_manager)
 
 if __name__ == "__main__":

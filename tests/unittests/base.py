@@ -1,5 +1,5 @@
 import os
-from flaskboilerplate import app
+from app import app
 import unittest
 import tempfile
 
