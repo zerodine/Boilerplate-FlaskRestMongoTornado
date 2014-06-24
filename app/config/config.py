@@ -44,5 +44,15 @@ class Config(object):
     # If the access token given in a Authorization header should be verified
     OAUTH_ENDPOINT = None
 
+    # Keys for signing auth
+    NODE_KEY_ALLOWED = [
+        # Test frontend
+        "d7c86080232a7f61598cb55c5bcae63967421d33",
+        # Another frontend
+        "e7c86080262e7f61598cb5c5b1ae9396d421d483"
+    ]
+
+    NODE_KEY_CACHE_DIR = "../keycache/"
+
     # DO NOT CHANGE
     SERVICE = ServiceContainer()

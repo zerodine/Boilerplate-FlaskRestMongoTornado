@@ -1,20 +1,22 @@
 import requests
+from authenticate import Authenticate
 
 
-class OAuth(object):
+class OAuth(Authenticate):
 
     endpoint = None
+    access_token = None
 
     def __init__(self, endpoint):
         self.endpoint = endpoint
 
-    def verify(self, access_token):
+    def verify(self):
         """Verify the access token
 
         Keyword arguments:
         access_token -- An oauth 2.0 access token
         """
-        r = requests.get(self.endpoint + "?access_token=" + access_token)
+        r = requests.get(self.endpoint + "?access_token=" + self.access_token)
         if r.status_code == 200:
             # TODO: Return the response body
             return True

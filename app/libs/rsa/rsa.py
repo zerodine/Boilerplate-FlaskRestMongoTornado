@@ -66,9 +66,20 @@ class Rsa(object):
         public -- The public key as string
         private -- The private key as string (default None)
         """
-        keyPair = M2Crypto.BIO.MemoryBuffer()
-        keyPair.write("%s\n%s" % (public, private))
+        if private is None:
+            return self.loadPublicKey(public)
+
+        keyPair = M2Crypto.BIO.MemoryBuffer("%s\n%s" % (public, private))
         self._rsa = M2Crypto.RSA.load_key_bio(keyPair)
+
+    def loadPublicKey(self, public):
+        """Load a public key
+
+        Keyword arguments:
+        public -- The public key as string
+        """
+        bio = M2Crypto.BIO.MemoryBuffer(public)
+        self._rsa = M2Crypto.RSA.load_pub_key_bio(bio)
 
     def createKeypair(self, size=2048):
         """Creates a RSA keypair
