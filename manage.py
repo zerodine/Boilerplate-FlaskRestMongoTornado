@@ -1,13 +1,10 @@
 from flask.ext.script import Manager
 
-
-def sub_opts(*app, **kwargs):
-    pass
-
-manager = Manager(sub_opts)
-
-from app.apps.core.commands import sub_manager as core_sub_manager
-manager.add_command("core", core_sub_manager)
+from app import create_app
+from app.commands import sub_manager
 
 if __name__ == "__main__":
+    app = create_app(env='dev')
+    manager = Manager(app)
+    manager.add_command("core", sub_manager)
     manager.run()

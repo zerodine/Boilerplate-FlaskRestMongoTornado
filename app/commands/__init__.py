@@ -1,10 +1,7 @@
 from flask.ext.script import Manager
-from .. import coreApp
-from demo import Demo
+from flask import current_app
+from tests import Tests
 
 
-sub_manager = Manager(coreApp)
-
-# adds a command to the manager
-sub_manager.add_command('demo', Demo())
-# sub_manager.add_command('anotherCommand', AnotherCommand())
+sub_manager = Manager(current_app)
+sub_manager.add_command('test', Tests())

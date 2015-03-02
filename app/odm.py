@@ -1,9 +1,9 @@
 from flask import g, current_app
 from flask_mongoengine import MongoEngine
 from werkzeug._internal import _log
-from werkzeug.local import LocalProxy
+#from werkzeug.local import LocalProxy
 
-def get_odm():
+def loadOdm():
     """Form a complex number.
 
     Keyword arguments:
@@ -17,4 +17,4 @@ def get_odm():
         db = g._odm = MongoEngine(current_app)
     return db
 
-odm = LocalProxy(get_odm)
+#odm = LocalProxy(get_odm)

@@ -4,14 +4,24 @@ import os
 from app import create_app
 from werkzeug._internal import _log
 from app.libs import Rsa
+import signal, sys
 
 # For tornado integration
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 
+def set_exit_handler(func):
+    signal.signal(signal.SIGTERM, func)
+
+def on_exit(sig, func=None):
+    print "exit handler triggered"
+    sys.exit(1)
+
 
 if __name__ == "__main__":
+    set_exit_handler(on_exit)
+
     # CLI arguments
     parser = argparse.ArgumentParser(description='Staring Flask based RESTful Server')
     parser.add_argument('port', metavar='Port', type=int, nargs='?', default=5000, help='port to run the application')

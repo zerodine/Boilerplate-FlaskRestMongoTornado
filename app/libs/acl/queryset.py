@@ -8,13 +8,15 @@ class AclAwareQueryset(QuerySetNoCache):
     def check_document_acl(function):
         """Check if a document exists"""
         def decorator(*arg, **kwargs):
-            if 'checkAcl' in dir(arg[0]) and arg[0]._document.checkAcl():
+            return function(*arg, **kwargs)
+
+            '''if 'checkAcl' in dir(arg[0]) and arg[0]._document.checkAcl():
                 return function(*arg, **kwargs)
             else:
                 method = getattr(super(arg[0].__class__, arg[0]), function.__name__)
                 if function.__name__ in ['__iter__']:
                     return method()
-                return method(*arg, **kwargs)
+                return method(*arg, **kwargs)'''
         return decorator
 
     @check_document_acl

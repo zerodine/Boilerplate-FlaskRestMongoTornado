@@ -16,7 +16,9 @@ class ServiceContainer(object):
         Keyword arguments:
         name -- name of the service
         """
-        return self._services[name]
+        if name in self._services:
+            return self._services[name]
+        return None
 
 
 class Config(object):
@@ -24,7 +26,7 @@ class Config(object):
     SECRET_KEY = 'SOME_SECRET_KEY_HERE'
 
     # Name for logger
-    LOGGER_NAME = 'flaskboilerplate'
+    LOGGER_NAME = 'cathedra'
 
     # CORS settings for XHR-calls from browsers
     CORS_ORIGIN = ['*']
@@ -33,11 +35,12 @@ class Config(object):
 
     # Connection settings for MongoDB support
     MONGODB_SETTINGS = dict({
-        "DB": "flaskdemo",
+        "DB": "cathedra",
         #"USERNAME": "my_user_name",
         #"PASSWORD": "my_secret_password",
         "HOST": "localhost",
         "PORT": 27017,
+        'ALIAS': 'default',
         #"DEBUG_TB_PANELS": "flask.ext.mongoengine.panels.MongoDebugPanel"
     })
 

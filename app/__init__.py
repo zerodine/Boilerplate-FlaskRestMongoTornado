@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask  #, request
 from flask.ext import restful
 from flask_restful.utils import cors
 from decorators import authenticate
@@ -7,9 +7,21 @@ from app.config.config_dev import Config
 from libs.rsa import Rsa
 
 
+def register_error_handlers(app):
+    from flask import jsonify
+    from app.resources import ResourceException
+
+    @app.errorhandler(ResourceException)
+    def handle_occupation_exception(error):
+        response = jsonify(error.to_dict())
+        response.status_code = error.status_code
+        return response
+
 def create_app(env='dev', services=dict()):
     # Create the flask app
     app = Flask(__name__)
+
+    register_error_handlers(app)
 
     # Do everything in the app context
     with app.app_context():
@@ -25,7 +37,10 @@ def create_app(env='dev', services=dict()):
             app.config['SERVICE'].add(name, obj)
 
         # Get the database connection object
-        from odm import odm
+        from odm import loadOdm
+
+        loadOdm()
+
 
         # Configure the Applications API
         g._api = restful.Api(current_app)
@@ -36,7 +51,10 @@ def create_app(env='dev', services=dict()):
         ]
 
         # Load all further resources
-        from . import views
-        from . import resources
+        from views import loadViews
+        from resources import loadResources
+
+        loadResources()
+        loadViews()
 
         return app
